@@ -1,0 +1,39 @@
+name: CI ms-backend
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'oracle'
+          java-version: 17
+
+      - name: Execute Maven build
+        run: mvn clean package -Dmaven.test.skip=true
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: trebor006
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v3
+        with:
+          context: .
+          push: true
+          tags: trebor006/ms-segip-simulation:latest
