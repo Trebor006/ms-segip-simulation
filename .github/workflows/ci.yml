@@ -37,3 +37,20 @@ jobs:
           context: .
           push: true
           tags: trebor006/ms-segip-simulation:latest
+
+      - name: Pull image from Docker Hub
+        run: docker pull trebor006/ms-segip-simulation:latest
+
+      - name: Install doctl
+        uses: digitalocean/action-doctl@v2
+        with:
+          token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
+
+      - name: Log in to DO Container Registry
+        run: doctl registry login --expiry-seconds 600
+
+      - name: Tag image
+        run:
+          docker tag trebor006/ms-segip-simulation:latest registry.digitalocean.com/denuncity-registry/ms-segip-simulation:1.0.0
+      - name: Push image to DO Container Registry
+        run: docker push registry.digitalocean.com/denuncity-registry/ms-segip-simulation:1.0.0
