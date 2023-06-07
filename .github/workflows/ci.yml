@@ -55,6 +55,6 @@ jobs:
       - name: Push image to DO Container Registry
         run: docker push registry.digitalocean.com/denuncity-registry/ms-segip-simulation:1.0.0
 
-      - name: Clean up old images
-        run: echo "y" | doctl registry repository delete-manifests denuncity-registry/ms-segip-simulation --keep 1
-
+#      - name: Clean up old images
+#        run: echo "y" | doctl registry repository delete-manifests denuncity-registry/ms-segip-simulation --keep 1
+#
