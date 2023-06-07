@@ -54,3 +54,9 @@ jobs:
           docker tag trebor006/ms-segip-simulation:latest registry.digitalocean.com/denuncity-registry/ms-segip-simulation:1.0.0
       - name: Push image to DO Container Registry
         run: docker push registry.digitalocean.com/denuncity-registry/ms-segip-simulation:1.0.0
+
+#      - name: Remove old images from Container Registry
+#        uses: ripplr-io/docr-image-remove@v1
+#        with:
+#          image_repository: ms-segip-simulation # required
+#          buffer_size: 10
